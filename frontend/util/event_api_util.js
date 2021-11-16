@@ -15,3 +15,7 @@ export const deleteEvent = (eventId) => {
 export const showEvent = (eventId) => {
     return axios.get(`/api/events/${eventId}`)
 }
+
+export const fetchEvents = () => {
+    return axios.get(`/api/events/allEvents`)
+}
