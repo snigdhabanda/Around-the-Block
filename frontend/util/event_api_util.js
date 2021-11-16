@@ -12,7 +12,7 @@ export const deleteEvent = (eventId) => {
     return axios.delete(`/api/events/${eventId}`)
 }
 
-export const showEvent = (eventId) => {
+export const fetchEvent = (eventId) => {
     return axios.get(`/api/events/${eventId}`)
 }
 
