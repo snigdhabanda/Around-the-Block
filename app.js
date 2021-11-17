@@ -5,6 +5,8 @@ const app = express();
 const users = require("./routes/api/users");
 const bodyParser = require('body-parser');
 const passport = require('passport');
+const events = require("./routes/api/events");
+
 
 mongoose
   .connect(db, { useNewUrlParser: true })
@@ -19,6 +21,7 @@ require('./config/passport')(passport);
 
 // app.get("/", (req, res) => res.send("Hello World"));
 app.use("/api/users", users);
+app.use("/api/events", events);
 const port = process.env.PORT || 5000;
 
 
