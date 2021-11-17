@@ -2,7 +2,7 @@
 $Courgette: "Courgette", cursive;
 $KaushanScript: "Kaushan Script", cursive;
 $Pacifico: "Pacifico", cursive;
-$Nunito: 'Nunito', sans-serif;
+$Nunito: "Nunito", sans-serif;
 
 .nav-bar {
   display: flex;
@@ -32,6 +32,8 @@ $Nunito: 'Nunito', sans-serif;
     margin-left: 70px;
     font-size: 35px;
     color: white;
+    font-size: 20px;
+    color: rgb(26, 24, 24);
     padding: 0px 10px;
     background-color: #f2a07b;
     padding: 10px 20px;

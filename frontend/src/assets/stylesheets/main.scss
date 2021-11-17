@@ -1,15 +1,16 @@
+$Courgette: "Courgette", cursive;
+$KaushanScript: "Kaushan Script", cursive;
+$Pacifico: "Pacifico", cursive;
+$Nunito: "Nunito", sans-serif;
 
 
-$Courgette: “Courgette”, cursive;
-$KaushanScript: “Kaushan Script”, cursive;
-$Pacifico: “Pacifico”, cursive;
-$Nunito: “Nunito”, sans-serif;
 .inner-container {
   display: flex;
   position: relative;
   align-items: center;
   justify-content: center;
   height: 100%;
+  
 }
  .event-content {
   display: flex;
@@ -53,4 +54,5 @@ $Nunito: “Nunito”, sans-serif;
 .img {
   width: 100vw;
   height: 100vh;
+ 
 }
