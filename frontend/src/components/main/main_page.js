@@ -1,6 +1,19 @@
 import React from "react";
 import { Carousel } from "antd";
 
+
+const contentStyle = {
+  height: "600px",
+  color: "#fff",
+  lineHeight: "160px",
+  textAlign: "center",
+  background: "#364d79",
+};
+const imgSize = {
+  width: "100vw",
+  height: "100vh",
+};
+
 class MainPage extends React.Component {
   constructor(props) {
     super(props);
@@ -12,7 +25,7 @@ class MainPage extends React.Component {
   }
 
   onChange(a, b, c) {
-    console.log(a, b, c);
+    // console.log(a, b, c);
   }
   render() {
     const img = {
