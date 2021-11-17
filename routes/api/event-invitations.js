@@ -47,16 +47,27 @@ router.patch(
       if (invite.status === "accepted") {
         //add recipient to the event guest list
         //add event to user's joinedEvents
+
         Event.findOneAndUpdate(
-          { _id: invite.event.id },
-          { $addToSet: { guest: req.user.id } }
-        );
+          { _id: invite.event },
+          { $addToSet: { guests: req.user.id } }
+        ).then();
+
         User.findOneAndUpdate(
           { _id: req.user.id },
-          { $addToSet: { eventsJoined: invite.event.id } },
+          { $addToSet: { eventsJoined: invite.event } },
           { new: true }
         )
-          .then((updatedUser) => res.json(updatedUser))
+          .then((updatedUser) =>
+            res.json({
+              id: updatedUser.id,
+              name: updatedUser.name,
+              email: updatedUser.email,
+              eventsJoined: updatedUser.eventsJoined,
+              eventsHosted: updatedUser.eventsHosted,
+              friends: updatedUser.friends,
+            })
+          )
           .catch((err) => console.log(err));
       } else {
         //delete this invite

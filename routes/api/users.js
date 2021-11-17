@@ -109,9 +109,9 @@ router.get(
       id: req.user.id,
       name: req.user.name,
       email: req.user.email,
-      eventsJoined: req.body.eventsJoined,
-      eventsHosted: req.body.eventsHosted,
-      friends: req.body.friends,
+      eventsJoined: req.user.eventsJoined,
+      eventsHosted: req.user.eventsHosted,
+      friends: req.user.friends,
     });
   }
 );
