@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
-const User = require("../../models/User");
+const Event = require("../../models/Event");
 const passport = require("passport");
 const EventInvitation = require("../../models/EventInvitation");
 
@@ -14,19 +14,20 @@ router.post(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     errors = {};
-    Event.findOne({ recipient: req.body.recipient }).then((record) => {
-      if (record) {
-        errors.recipient = "Already sent friend request to this person";
+    Event.findOne({ event: req.body.event }).then((event) => {
+      if (!event) {
+        errors.recipient = "Can not find the event";
         return res.status(400).json(errors);
       } else {
-        const newRequest = new EventInvitation({
-          requester: req.user.id,
+        const newInvite = new EventInvitation({
+          inviter: req.user.id,
           recipient: req.body.recipient,
+          event,
         });
-        newRequest
+        newInvite
           .save()
-          .then((request) => {
-            res.json(request);
+          .then((invite) => {
+            res.json(invite);
           })
           .catch((err) => res.json(err));
       }
@@ -42,35 +43,25 @@ router.patch(
       { recipient: req.user.id },
       { status: req.body.status },
       { new: true }
-    ).then((record) => {
-      if (record.status === "approved") {
-        // trigger update requester
-        // trigger update recipient
-        User.findOneAndUpdate(
-          { _id: record.requester },
-          {
-            $addToSet: {
-              friends: record.recipient,
-            },
-          },
-          { new: true }
+    ).then((invite) => {
+      if (invite.status === "accepted") {
+        //add recipient to the event guest list
+        //add event to user's joinedEvents
+        Event.findOneAndUpdate(
+          { _id: invite.event.id },
+          { $addToSet: { guest: req.user.id } }
         );
-
         User.findOneAndUpdate(
-          { _id: record.recipient },
-          {
-            $addToSet: {
-              friends: record.requester,
-            },
-          },
+          { _id: req.user.id },
+          { $addToSet: { eventsJoined: invite.event.id } },
           { new: true }
         )
-          .then((updatedUser) => res.json("Success"))
-          .catch((err) => res.json(err));
+          .then((updatedUser) => res.json(updatedUser))
+          .catch((err) => console.log(err));
       } else {
-        //delete this record
-        EventInvitation.deleteOne({ _id: record.id })
-          .then((res) => res.json("you are not friends anymore :("))
+        //delete this invite
+        EventInvitation.deleteOne({ _id: invite.id })
+          .then((res) => res.json("hope to see you in the next event!"))
           .catch((err) => console.log(err));
       }
     });
