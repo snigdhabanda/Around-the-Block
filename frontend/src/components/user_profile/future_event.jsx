@@ -46,34 +46,23 @@ class FutureEvent extends React.Component {
     let displayMyJoinedEvents = myJoinedEvents.map((event, joinedId) => {
       return (
         <div key={joinedId} className="profile-event-page">
-          <div className="p-event-container-title"></div>
-
-          <div className="profile-event-container">
-            {/* {this.props.user.eventsJoined.map((event) => {
-              const event = this.props.events[event];
-            })} */}
             <div className="profile-event-content">
-              <img
-                className="p-e-img"
-                src={event.imageUrl}
-              />
+              <div>
+                <img className="p-e-img" src={event.imageUrl} />
+              </div>
               <div clasName="profile-event-detials">
                 <div className="p-event-time">
                   <div className="p-e-t">{event.time}</div>
-                  {/* <div className="p-e-t">6pm Thur. 11/21/2021</div>     */}
                 </div>
                 <div className="p-event-name">
                   <div className="p-e-n">{event.name}</div>
-                  {/* <div className="p-e-n">Cooking Party with Evan</div> */}
                 </div>
                 <div className="p-event-desc">
                   <div className="p-e-d">{event.description}</div>
-                  {/* <div className="p-e-d">We are gonna cook with GASSSS</div> */}
                 </div>
               </div>
             </div>
           </div>
-        </div>
       );
     });
     return (

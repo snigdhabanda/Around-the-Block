@@ -27,20 +27,22 @@ class NavBar extends React.Component {
     this.setState({ isDropdown: !this.state.isDropdown });
   }
   // Selectively render links dependent on whether the user is logged in
- 
+
   render() {
-     const { events, currentUser } = this.props;
-    // const myrequests = requests.filter(
-    //   (request) => request.recepientId === currentUser.user.id
-    // );
-    // let display = myrequests.map((request, requestId) => (
+    const { events, currentUser } = this.props;
+
+    // let display = currentUser.requests.map((request, requestId) => (
     //   <div key={requestId}>
     //     <div>
     //       <div>
-    //         <div>{request.requester}</div>
     //         <div>
-      // <button>Accept</button>
-      // <button>Cancel</button>
+    // <div>{request.requester} send you a friend request</div>
+    //  <div>
+    // <button>Accept</button>
+    // <button>Deny</button>
+    // </div>
+    // </div>
+    //         <div>
     //          </div>
     //       </div>
     //     </div>
@@ -92,13 +94,17 @@ class NavBar extends React.Component {
           <button className="btn" onClick={this.logoutUser}>
             Logout
           </button>
+          <Link className="btn nav-button" to="/events/create">
+            Create Event
+          </Link>
+          <br/>
           <IoMdNotificationsOutline
             className="svg"
             onClick={this.toggleDropdown}
           />
           {/* <div>{dropdownMenu}</div> */}
           <Link className="link" to={"/profile"}>
-            <CgProfile/>
+            <CgProfile />
           </Link>
         </div>
       </div>
@@ -125,6 +131,5 @@ class NavBar extends React.Component {
     );
   }
 }
-
 
 export default NavBar;

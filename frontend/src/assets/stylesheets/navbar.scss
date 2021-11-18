@@ -31,8 +31,8 @@ $Nunito: "Nunito", sans-serif;
     display: flex;
     align-items: center;
     justify-content: space-around;
-    width: 30%;
-    margin: 0 20px;
+    width: 50%;
+    margin: 0 10px;
     .logged-in-profile-icon{
     display: flex;
     justify-content: space-between;
@@ -57,6 +57,9 @@ $Nunito: "Nunito", sans-serif;
     border-radius: 30px;
     transition: all 0.2s ease-in-out;
     font-family: $Nunito;
+  }
+  .nav-button{
+    width: 180px;
   }
   .btn:hover {
     background-color: #f18867;
