@@ -33,6 +33,7 @@ class MainPage extends React.Component {
       1: "https://atb-photos.s3.amazonaws.com/painting.jpeg",
       2: "https://atb-photos.s3.amazonaws.com/green.jpeg",
       3: "https://atb-photos.s3.amazonaws.com/aniversary.jpeg",
+      //start here
       4: "https://atb-photos.s3.amazonaws.com/comedy.jpeg",
       5: "https://atb-photos.s3.amazonaws.com/plants.jpeg",
       6: "https://atb-photos.s3.amazonaws.com/galary.jpeg",

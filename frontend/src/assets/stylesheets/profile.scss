@@ -1,7 +1,99 @@
-profile-content {
-    margin-top: 0px;
-    height: 200px;
-    width: 300px;
+.profile-event-page{
     display: flex;
+    flex-direction: column;
+}
+
+.p-event-container-title{
+    background-color: rgb(247, 241, 243);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 60px;
+    color: rgb(110, 110, 109);
+    padding-top: 50px;
+    box-shadow: 3px 3px rgb(248, 246, 246), -1em 0 .4em olive;
+
+
+}
+.profile-event-container{
+    background-color: rgb(250, 229, 236);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 0px;
+    padding-bottom: 1px solid gray;
+
+
+}
+
+.profile-event-content{
+    background-color: rgb(250, 229, 236);
+    margin-top: 0px;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
     align-items: center;
 }
+
+
+.p-e-img{
+    height: 400px;
+    width: 500px;
+    margin-bottom: 10px;
+    margin-left: 200px;
+    margin-right: 50px;
+     box-shadow: 10px 10px 5px 12px grey;
+}
+
+.profile-event-detials{
+    margin-right: 100px;
+
+}
+.p-event-time{
+    font-size: 30px;
+    font-family: 'Nunito';
+    color: rgb(104, 105, 105);
+    margin-bottom: 50px;
+}
+
+
+.p-event-name{
+    font-size: 60px;
+    font-family: 'Nunito';
+    margin-bottom: 50px;
+    font-weight: bold;
+
+}
+
+.p-event-desc{
+    font-size: 30px;
+    margin-bottom: 50px;
+    font-family: 'Nunito';
+    color: rgb(104, 105, 105);
+
+}
+
+
+
+.rofile-friends-container{
+    display: flex;
+    flex-wrap: wrap;
+    
+   
+    align-items: center;
+
+
+}
+
+.p-e-i{
+    height: 250px;
+    width: 250px;
+    margin-bottom: 10px;
+    margin-left: 50px;
+    margin-right: 50px;
+     box-shadow: 10px 10px 5px 12px grey;
+     border-radius: 50%;
+
+}
+

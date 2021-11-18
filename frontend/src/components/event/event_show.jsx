@@ -4,13 +4,12 @@ import { Link } from "react-router-dom";
 class EventShow extends React.Component {
   constructor(props) {
     super(props);
-    
   }
-  // componentDidMount() {
-  //   this.props.fetchEvent(this.props.event._id);
-    
-  // }
+  componentDidMount() {
+    this.props.fetchEvent(this.props.match.params.eventId);
+  }
   render() {
+    if (!this.props.event) return null;
     return (
       <div className="event-show-page">
         <div className="event-show-content">

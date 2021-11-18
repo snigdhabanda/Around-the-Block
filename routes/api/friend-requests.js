@@ -9,12 +9,26 @@ router.get("/test", (req, res) => {
   res.json("this is the friendrequest test route");
 });
 
+router.get(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    //only want to get the invites
+    FriendRequest.find({ recipient: req.user.id })
+      .then((results) => res.json(results))
+      .catch((err) => res.json(err));
+  }
+);
+
 router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     errors = {};
-    FriendRequest.findOne({ recipient: req.body.recipient }).then((record) => {
+    FriendRequest.findOne({
+      requester: req.user.id,
+      recipient: req.body.recipient,
+    }).then((record) => {
       if (record) {
         errors.recipient = "Already sent friend request to this person";
         return res.status(400).json(errors);

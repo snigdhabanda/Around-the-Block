@@ -6,7 +6,7 @@ module.exports = function validateRegisterInput(data) {
 
   data.email = validText(data.email) ? data.email : "";
 
-  if (!Validator.isEmail(data.email)) {
+  if (!Validator.isEmpty(data.email) && !Validator.isEmail(data.email)) {
     errors.email = "Email is invalid";
   }
 
