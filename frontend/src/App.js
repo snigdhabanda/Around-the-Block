@@ -12,7 +12,7 @@ import MainPageContainer from "./components/main/main_page_container";
 import FutureEventContainer from "./components/user_profile/future_event_container";
 
 // import UserProfileContainer from "./components/profile/user_profile_container"
-import CreateEventContainer from "./components/profile/create_event";
+import CreateEventContainer from "./components/user_profile/create_event";
 
 const App = () => (
   <div>

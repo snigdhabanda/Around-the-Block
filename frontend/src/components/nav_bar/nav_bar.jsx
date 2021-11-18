@@ -28,22 +28,22 @@ class NavBar extends React.Component {
     this.setState({ isDropdown: !this.state.isDropdown });
   }
   // Selectively render links dependent on whether the user is logged in
-  submitFriendRequest(name) {
-    // return (e) => {e.preventDefault();
-    const user = this.props.users.filter((user) => user.name === name)[0];
-    if (user) this.props.createFriendRequest({ recipient: user._id });
-  }
+  // submitFriendRequest(name) {
+  //   // return (e) => {e.preventDefault();
+  //   const user = this.props.users.filter((user) => user.name === name)[0];
+  //   if (user) this.props.createFriendRequest({ recipient: user._id });
+  // }
 
-  handleApprove(invite) {
-    this.props.updateFriend({
-      status: "approved",
-      requester: invite.requester,
-    });
-  }
+  // handleApprove(invite) {
+  //   this.props.updateFriend({
+  //     status: "approved",
+  //     requester: invite.requester,
+  //   });
+  // }
 
-  handleReject(invite) {
-    this.props.updateFriend({ status: "denied", requester: invite.requester });
-  }
+  // handleReject(invite) {
+  //   this.props.updateFriend({ status: "denied", requester: invite.requester });
+  // }
 
   render() {
     const { events, users, invites, currentUser } = this.props;

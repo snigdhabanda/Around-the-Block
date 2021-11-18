@@ -12,6 +12,7 @@ const mapStateToProps = (state) => ({
   events: Object.values(state.events),
   users: state.users,
   invites: state.invites,
+  requests: state.requests
 
 });
 

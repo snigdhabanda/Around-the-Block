@@ -6,10 +6,13 @@ class FutureEvent extends React.Component {
     this.state = {name: "" }
   }
   componentDidMount() {
+    
     this.props.fetchEvents();
     this.props.receiveInvites(); 
+    
     this.props.fetchFriendRequests();
     this.props.fetchUsers()
+    
   }
 
   update(field) {
@@ -21,6 +24,7 @@ class FutureEvent extends React.Component {
 
   submitFriendRequest(name){
     // return (e) => {e.preventDefault();
+    
     const user = this.props.users.filter(user => user.name === name)[0];
     if (user) this.props.createFriendRequest({recipient: user._id})
     
@@ -35,7 +39,6 @@ class FutureEvent extends React.Component {
   }
 
   render() {
-    console.log(this.state)
     const { events, currentUser, invites, users } = this.props;
     const myEvents = events.filter(
         (event) => event.hostId === currentUser.user.id
@@ -70,6 +73,7 @@ class FutureEvent extends React.Component {
     });
     let displayMyJoinedEvents = myJoinedEvents.map((event, joinedId) => {
       return (
+        <div>
           <div key={joinedId} className="profile-event-page">
             <div className="p-event-container-title"></div>
 
@@ -91,6 +95,7 @@ class FutureEvent extends React.Component {
               </div>
             </div>
           </div>
+        </div>
       );
     });
     return (
@@ -111,10 +116,13 @@ class FutureEvent extends React.Component {
                   <ul>
                     {
                     Object.values(this.props.invites).map((invite) => 
-                      <li>{Object.values(users).filter(user => user._id === invite.requester[0]).name}
-                      <button onClick={this.handleApprove.bind(this, invite)}>Approve</button>
-                      <button onClick={this.handleReject.bind(this, invite)}>Deny</button>
-                      </li>
+                      {if (invite.status === "pending"){
+                        <li>{Object.values(users).filter(user => user._id === invite.requester)[0].name}
+                        <button onClick={this.handleApprove.bind(this, invite)}>Approve</button>
+                        <button onClick={this.handleReject.bind(this, invite)}>Deny</button>
+                        </li>
+                      }}
+                     
                     )}
                   </ul>
             <h3>Send a friend request</h3>
@@ -150,9 +158,8 @@ class FutureEvent extends React.Component {
           </div>
         </div>
       </div>
-    );
+    );  
   }
 }
 
 export default FutureEvent;
-

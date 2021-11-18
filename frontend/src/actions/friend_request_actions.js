@@ -5,6 +5,7 @@ export const RECEIVE_FRIEND_ERRORS = "RECEIVE_FRIEND_ERRORS";
 
 
 const receiveRequest = (request) => ({
+    
     type: RECEIVE_REQUEST,
     request
 })
@@ -23,9 +24,11 @@ export const receiveFriendErrors = (errors) => ({
 
 
 export const createFriendRequest = (friendId) => dispatch => (
+    
     FriendRequestAPIUtil.createFriendRequest(friendId).then(
-        (request) => dispatch(receiveRequest(request.data)),
+        (request) => dispatch(receiveRequest(request)),
         (err) => dispatch(receiveFriendErrors(err.response.data))
+        
     )
 )
 
