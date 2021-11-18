@@ -8,7 +8,6 @@ import { fetchUsers } from "../../actions/users_actions";
 import FutureEvent from "./future_event";
 
 const mapStateToProps = (state) => ({
-  // user: state.session.user,
   currentUser: state.session,
   events: Object.values(state.events),
   currentUser: state.session,

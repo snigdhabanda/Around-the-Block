@@ -8,11 +8,11 @@ $Nunito: "Nunito", sans-serif;
   display: flex;
   justify-content: space-between;
   padding: 0 70px;
-  background: #557571;
+  background: #175245;
   align-items: center;
   height: 150px;  
-  padding-left: 80px;
-  padding-right: 30px;
+  padding-left: 10px;
+  padding-right: 10px;
   .app-name {
     // font-family: $Courgette;
     // font-family: $Pacifico;
@@ -59,7 +59,9 @@ $Nunito: "Nunito", sans-serif;
     font-family: $Nunito;
   }
   .nav-button{
-    width: 180px;
+    width: 170px;
+    margin-left: 0;
+    height: 40px;
   }
   .btn:hover {
     background-color: #f18867;

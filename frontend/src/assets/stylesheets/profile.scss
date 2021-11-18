@@ -11,8 +11,7 @@
     font-size: 60px;
     color: rgb(110, 110, 109);
     padding-top: 50px;
-    box-shadow: 3px 3px rgb(248, 246, 246), -1em 0 .4em olive;
-
+    box-shadow: 3px 3px rgb(248, 246, 246), -1em 0 .4em #7ec1ff;
 
 }
 .profile-event-container{
@@ -45,11 +44,12 @@
 }
 
 .profile-event-detials{
-    margin-right: 100px;
+    // margin-right: 100px;
     display: flex;
     flex-direction: column;
 }
-.p-event-time{
+
+.p-e-t{
     font-size: 30px;
     font-family: 'Nunito';
     color: rgb(104, 105, 105);
@@ -57,7 +57,7 @@
 }
 
 
-.p-event-name{
+.p-e-n{
     font-size: 60px;
     font-family: 'Nunito';
     margin-bottom: 50px;
@@ -65,7 +65,7 @@
 
 }
 
-.p-event-desc{
+.p-e-d{
     font-size: 30px;
     margin-bottom: 50px;
     font-family: 'Nunito';
@@ -75,11 +75,10 @@
 
 
 
+
 .rofile-friends-container{
     display: flex;
     flex-wrap: wrap;
-    
-   
     align-items: center;
 
 

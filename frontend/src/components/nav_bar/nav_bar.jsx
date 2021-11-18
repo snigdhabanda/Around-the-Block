@@ -97,7 +97,6 @@ class NavBar extends React.Component {
           <Link className="btn nav-button" to="/events/create">
             Create Event
           </Link>
-          <br/>
           <IoMdNotificationsOutline
             className="svg"
             onClick={this.toggleDropdown}
