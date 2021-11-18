@@ -15,7 +15,8 @@ const removeEvent = () => ({
     type: REMOVE_EVENT
 })
 const receiveEventErrors = (errors) => ({
-    type: RECEIVE_EVENT_ERRORS
+    type: RECEIVE_EVENT_ERRORS,
+    errors
 })
 export const createEvent = (event, history) => dispatch => (
     EventAPIUtil.createEvent(event).then(

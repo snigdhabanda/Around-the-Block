@@ -4,12 +4,40 @@ import React from "react";
 class FutureEvent extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {name: "" }
   }
   componentDidMount() {
     this.props.fetchEvents();
+    this.props.receiveInvites(); 
+    this.props.fetchFriendRequests();
+    this.props.fetchUsers()
   }
+
+  update(field) {
+    return (e) =>
+      this.setState({
+        [field]: e.currentTarget.value,
+      });
+  }
+
+  submitFriendRequest(name){
+    // return (e) => {e.preventDefault();
+    const user = this.props.users.filter(user => user.name === name)[0];
+    if (user) this.props.createFriendRequest({recipient: user._id})
+    
+  }
+
+  handleApprove(invite){
+    this.props.updateFriend({status: "approved", requester: invite.requester})
+  }
+
+  handleReject(invite){
+    this.props.updateFriend({status: "denied", requester: invite.requester})
+  }
+
   render() {
-    const { events, currentUser } = this.props;
+    console.log(this.state)
+    const { events, currentUser, invites, users } = this.props;
     const myEvents = events.filter(
       (event) => event.hostId === currentUser.user.id
     );
@@ -80,8 +108,29 @@ class FutureEvent extends React.Component {
         <div className="profile-event-page">
 
           <div className="p-event-container-title">FRIENDS</div>
+          <h3>Friend Requests From</h3>
+                  <ul>
+                    {
+                    Object.values(this.props.invites).map((invite) => 
+                      <li>{Object.values(users).filter(user => user._id === invite.requester[0]).name}
+                      <button onClick={this.handleApprove.bind(this, invite)}>Approve</button>
+                      <button onClick={this.handleReject.bind(this, invite)}>Deny</button>
+                      </li>
+                    )}
+                  </ul>
+            <h3>Send a friend request</h3>
+                <form onSubmit={this.submitFriendRequest.bind(this, this.state.name)}>
+                  <label>Name</label>
+                  <input type="text" onChange={this.update('name')}/>
+                  <button type="submit">Submit</button>
+                </form> 
+                
+                {/* <div>{display}</div> */}
+          
+
 
                  <div className="profile-friends-container">
+                 
 
                              <div className="profile-event-content">
                                      <img

@@ -20,13 +20,13 @@ module.exports = function validateEventInput(data) {
         errors.description = 'Description must be longer';
     }
 
-    if (!Validator.isFloat(data.lat)) {
-        errors.description = 'Coordinates are not valid';
-    }
+    // if (!Validator.isFloat(data.lat)) {
+    //     errors.description = 'Coordinates are not valid';
+    // }
   
-    if (!Validator.isFloat(data.long)) {
-        errors.description = 'Coordinates are not valid';
-    }
+    // if (!Validator.isFloat(data.long)) {
+    //     errors.description = 'Coordinates are not valid';
+    // }
   
     return {
       errors,

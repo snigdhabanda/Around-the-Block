@@ -8,6 +8,10 @@ export const login = (userData) => {
   return axios.post("/api/users/login", userData);
 };
 
+export const fetchUsers = () => {
+  return axios.get("/api/users/allUsers");
+};
+
 
 export const setAuthToken = (token) => {
   if (token) {
