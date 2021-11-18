@@ -14,7 +14,7 @@ class NavBar extends React.Component {
     };
 
     this.logoutUser = this.logoutUser.bind(this);
-    this.toggleDropdown = this.toggleDropdown.bind(this);
+    // this.toggleDropdown = this.toggleDropdown.bind(this);
   }
 
   logoutUser(e) {
@@ -28,130 +28,57 @@ class NavBar extends React.Component {
     this.setState({ isDropdown: !this.state.isDropdown });
   }
   // Selectively render links dependent on whether the user is logged in
-<<<<<<< HEAD
-
-  render() {
-    const { events, currentUser } = this.props;
-
-    // let display = currentUser.requests.map((request, requestId) => (
-=======
-  profileHandler() {
-    <Link to="/profile"></Link>;
+  submitFriendRequest(name) {
+    // return (e) => {e.preventDefault();
+    const user = this.props.users.filter((user) => user.name === name)[0];
+    if (user) this.props.createFriendRequest({ recipient: user._id });
   }
+
+  handleApprove(invite) {
+    this.props.updateFriend({
+      status: "approved",
+      requester: invite.requester,
+    });
+  }
+
+  handleReject(invite) {
+    this.props.updateFriend({ status: "denied", requester: invite.requester });
+  }
+
   render() {
-    const { events, currentUser } = this.props;
-    // const myrequests = requests.filter(
-    //   (request) => request.recepientId === currentUser.user.id
-    // );
-    // let display = myrequests.map((request, requestId) => (
->>>>>>> 7745fa67880a27a96d01567e6b667bce25558776
-    //   <div key={requestId}>
+    const { events, users, invites, currentUser } = this.props;
+
+    // let display = Object.values(invites).map((invite, inviteId) => {
+    //   return (
     //     <div>
-    //       <div>
-    //         <div>
-<<<<<<< HEAD
-    // <div>{request.requester} send you a friend request</div>
-    //  <div>
-    // <button>Accept</button>
-    // <button>Deny</button>
-    // </div>
-    // </div>
-    //         <div>
-=======
-    // <button>Accept</button>
-    // <button>Cancel</button>
->>>>>>> 7745fa67880a27a96d01567e6b667bce25558776
-    //          </div>
-    //       </div>
+    //       <h3>Friend Requests From</h3>
+    //       <ul>
+    //         <li key={inviteId}>
+    //           {
+    //             Object.values(users).filter(
+    //               (user) => user._id === invite.requester[0]
+    //             ).name
+    //           }
+    //           <button onClick={this.handleApprove.bind(this, invite)}>
+    //             Approve
+    //           </button>
+    //           <button onClick={this.handleReject.bind(this, invite)}>
+    //             Deny
+    //           </button>
+    //         </li>
+    //       </ul>
     //     </div>
-    //   </div>
-    // )
-<<<<<<< HEAD
+    //   );
+    // });
     // const { isDropdown } = this.state;
     // let dropdownMenu;
     // if (isDropdown && this.props.loggedIn) {
     //   dropdownMenu = (
     //     <div className="loggedin-drop-down">
-    //       <div className="drop-down-profile">
-    //         <div className="drop-down-list">
-    //           <CgProfile
-    //             className="svg drop"
-    //             style={{ width: 45, height: 55 }}
-    //           />
-    //           <div className="drop-down-item">
-    //             <p> Friend Request!</p>
-    //             <Link style={{textDecoration: "none", backgroundColor: "white"}} to={"/profile"}>
-    //               View Your Profile
-    //             </Link>
-    //           </div>
-    //         </div>
-    //         <div className="drop-down-list">
-    //           <AiOutlineSetting
-    //             className="svg drop"
-    //             style={{ width: 50, height: 50 }}
-    //           />
-    //           <Link className="link"> Settings </Link>
-    //         </div>
-    //         <div className="drop-down-list">
-    //           <GrNotes className="svg drop" style={{ width: 45, height: 45 }} />
-    //           <Link className="link"> Feedback </Link>
-    //         </div>
-    //         <div className="drop-down-list">
-    //           <CgLogOut
-    //             className="svg drop"
-    //             style={{ width: 45, height: 45 }}
-    //           />
-    //           <p onClick={this.logoutUser}>Logout</p>
-    //         </div>
-    //       </div>
+    //           <div>{display}</div>
     //     </div>
     //   );
     // }
-=======
-    const { isDropdown } = this.state;
-    let dropdownMenu;
-    if (isDropdown && this.props.loggedIn) {
-      dropdownMenu = (
-        <div className="loggedin-drop-down">
-          <div className="drop-down-profile">
-            <div className="drop-down-list">
-              <CgProfile
-                className="svg drop"
-                style={{ width: 45, height: 55 }}
-              />
-              <div className="drop-down-item">
-                <p> Friend Request!</p>
-                <Link
-                  style={{ textDecoration: "none", backgroundColor: "white" }}
-                  to="/profile"
-                >
-                  View Your Profile
-                </Link>
-              </div>
-            </div>
-            <div className="drop-down-list">
-              <AiOutlineSetting
-                className="svg drop"
-                style={{ width: 50, height: 50 }}
-              />
-              <div className="link"> Settings </div>
-            </div>
-            <div className="drop-down-list">
-              <GrNotes className="svg drop" style={{ width: 45, height: 45 }} />
-              <div className="link"> Feedback </div>
-            </div>
-            <div className="drop-down-list">
-              <CgLogOut
-                className="svg drop"
-                style={{ width: 45, height: 45 }}
-              />
-              <p onClick={this.logoutUser}>Logout</p>
-            </div>
-          </div>
-        </div>
-      );
-    }
->>>>>>> 7745fa67880a27a96d01567e6b667bce25558776
     const getLinks = this.props.loggedIn ? (
       <div className="logged-in">
         <div className="logged-in-profile-icon">
@@ -163,15 +90,10 @@ class NavBar extends React.Component {
           </Link>
           <IoMdNotificationsOutline
             className="svg"
-            onClick={this.toggleDropdown}
+            // onClick={this.toggleDropdown}
           />
-<<<<<<< HEAD
           {/* <div>{dropdownMenu}</div> */}
-          <Link className="link" to={"/profile"}>
-=======
-          <div>{dropdownMenu}</div>
           <Link className="link" to="/profile">
->>>>>>> 7745fa67880a27a96d01567e6b667bce25558776
             <CgProfile />
           </Link>
         </div>
