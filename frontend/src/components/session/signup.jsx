@@ -5,6 +5,13 @@ import { RiLockPasswordFill } from "react-icons/ri";
 import { GrFormNextLink } from "react-icons/gr";
 import { HiOutlineClipboardList } from "react-icons/hi";
 
+const SpeechRecognition =
+  window.SpeechRecognition || window.webkitSpeechRecognition;
+const mic = new SpeechRecognition();
+
+mic.continuous = true;
+mic.interimResults = true;
+mic.lang = "en-us";
 
 class SignupForm extends React.Component {
   constructor(props) {
@@ -15,10 +22,17 @@ class SignupForm extends React.Component {
       password: "",
       // confirmPassword: "",
       errors: {},
+      isListening: false,
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.clearedErrors = false;
+    this.setIsListening = this.setIsListening.bind(this);
+    this.handleListen = this.handleListen.bind(this);
+    // this.clearedErrors = false;
+  }
+
+  componentDidMount() {
+    this.handleListen();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -29,11 +43,83 @@ class SignupForm extends React.Component {
     this.setState({ errors: nextProps.errors });
   }
 
+  handleListen() {
+    //
+    mic.onstart = () => {
+      console.log("Mics on");
+    };
+
+    mic.onresult = (event) => {
+      const transcript = Array.from(event.results)
+        .map((result) => result[0])
+        .map((result) => result.transcript)
+        .join("");
+      console.log(transcript);
+
+      if (transcript.includes("submit")) {
+        const email = this.state.email.replaceAll(" ", "");
+        const user = {
+          email,
+          name: this.state.name,
+          password: this.state.password,
+        };
+        //for now will submit signup twice, could use debounce to solve this
+        this.props.signup(user, this.props.history);
+        mic.stop();
+      } else if (transcript.includes("password")) {
+        const last = transcript.indexOf("word is");
+        let realTranscript = transcript.slice(last + 8);
+        realTranscript = realTranscript.replace("please subm", "");
+        this.setState({ password: realTranscript });
+      } else if (transcript.includes("email")) {
+        const last = transcript.indexOf("email is");
+        let realTranscript = transcript.slice(last + 8);
+        realTranscript = realTranscript.replace("my pas", "");
+
+        if (realTranscript.includes("at")) {
+          realTranscript = realTranscript.replace("at", "@");
+          this.setState({ email: realTranscript });
+        } else {
+          this.setState({ email: realTranscript });
+        }
+      } else if (transcript.includes("name")) {
+        let realTranscript = transcript;
+        const last = transcript.indexOf("name is");
+        realTranscript = transcript.slice(last + 7);
+        realTranscript = realTranscript.replace("my name is ", "");
+        realTranscript = realTranscript.replace("my email", "");
+        realTranscript = realTranscript.replace("Mayim", "");
+        // console.log("transcript");
+        // console.log(transcript);
+        // console.log("real transcript");
+        // console.log(realTranscript);
+        this.setState({ name: realTranscript });
+      }
+
+      mic.onerror = (event) => {
+        console.log(event.error);
+      };
+    };
+  }
+
+  setIsListening(e) {
+    // e.preventDefault();
+    this.setState({ isListening: !this.state.isListening }, () => {
+      if (this.state.isListening) {
+        mic.start();
+      } else {
+        console.log("Mic stop");
+        mic.stop();
+      }
+    });
+  }
+
   update(field) {
-    return (e) =>
+    return (e) => {
       this.setState({
         [field]: e.currentTarget.value,
       });
+    };
   }
 
   handleSubmit(e) {
@@ -52,10 +138,7 @@ class SignupForm extends React.Component {
     return (
       <ul className="render-errors">
         {Object.keys(this.state.errors).map((error, i) => (
-          <li
-            style={{ marginBottom: 5, fontSize: "20px"}}
-            key={`error-${i}`}
-          >
+          <li style={{ marginBottom: 5, fontSize: "20px" }} key={`error-${i}`}>
             {this.state.errors[error]}
           </li>
         ))}
@@ -97,6 +180,7 @@ class SignupForm extends React.Component {
                   placeholder="Email"
                 />
               </div>
+
               <br />
               <div className="form__field new">
                 <i>
@@ -104,7 +188,7 @@ class SignupForm extends React.Component {
                 </i>
                 <input
                   className="input-holder"
-                  type="password"
+                  type="text"
                   value={this.state.password}
                   onChange={this.update("password")}
                   placeholder="Password"
@@ -118,14 +202,18 @@ class SignupForm extends React.Component {
                     <GrFormNextLink />
                   </i>
                 </button>
-                <br/>
+                <br />
                 {this.renderErrors()}
               </div>
-              <div class="form__background">
-                <span class="form__background__shape form__background__shape2"></span>
+              <div className="form__background">
+                <span className="form__background__shape form__background__shape2"></span>
               </div>
             </form>
           </div>
+        </div>
+        <div className="mic">
+          {this.state.isListening ? <span>🎙️</span> : <span>🛑🎙️</span>}
+          <button onClick={this.setIsListening.bind(this)}>Start/Stop</button>
         </div>
       </div>
     );

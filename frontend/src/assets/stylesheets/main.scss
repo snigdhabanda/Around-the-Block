@@ -1,45 +1,64 @@
+$Courgette: "Courgette", cursive;
+$KaushanScript: "Kaushan Script", cursive;
+$Pacifico: "Pacifico", cursive;
+$Nunito: "Nunito", sans-serif;
 
 
-.img-background{
-    display: fixed;
-    width: 100vw;
-    min-width: 500px;
+.inner-container {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  
 }
-.img-container{
-    display: fixed;
-    height: 100vh;
-    margin-top: 100px;
-
-}
-
-.event-content{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-.event-container{
-    display: flex;
-    flex-direction: column;
-}
-.event-title{
-    font-family: 'Raleway', sans-serif;
+ .event-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: black;
+  width: 70%;
+  height: 50%;
+  align-items: center;
+  position: absolute;
+  font-family: $Nunito;
+  background: hsla(0, 16%, 96%, 0.5);
+  z-index: 1000;
+  .event-text {
     font-size: 30px;
-}
-
-.join-button{
-    background-color: #c70a04;
-    border: none;
-    color: rgb(252, 249, 249);
-    padding: 15px 32px;
+    font-family: $Nunito;
+  text-align: center;
+  width: 100%;
+//   z-index: 1000;
+  }
+  .event-text-name{
+    font-size: 50px;
+    font-family: $Nunito;
     text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 30px;
-    font-weight: bolder;
-    margin: 4px 2px;
-    border-radius: 5px;
-    cursor: pointer;
-    height: 100px;
-    width: 300px;
-    margin-top: 30px;
- }
+    width: 100%;
+  }
+} 
+.join-button {
+  background-color: #C70A04;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 50px;
+  font-weight: bolder;
+  margin: 4px 2px;
+  border-radius: 5px;
+  cursor: pointer;
+  height: 100px;
+  width: 400px;
+  margin-top: 30px;
+}
+.img {
+  width: 100vw;
+  height: 100vh;
+ 
+}

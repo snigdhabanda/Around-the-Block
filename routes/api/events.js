@@ -9,13 +9,15 @@ router.get("/allEvents", (req, res) => {
   //events are being sent up as an array
     Event.find().then(events => {
         res.send(events); 
-    }).catch(err => console.log(err));
+    }).catch(error => res.status(400).json({error: error}));
 });
 
 
 router.get("/:id", (req, res) => {
     const event = Event.findOne({_id: req.params.id}).exec();
-    event.then(function (doc) {res.send(doc)})
+    event.then(function (doc) {res.send(doc)}).catch(
+        error => res.status(400).json({error: error})
+    )
 })
 
 router.post("/newEvent", (req, res) => {
@@ -26,7 +28,7 @@ router.post("/newEvent", (req, res) => {
         return res.status(400).json(errors);
     }
     
-    Event.findOne({ name: req.body.name }).then(event => {
+    Event.findOne({ name: req.body.name }).populate({path: 'hostId', model: 'Users', select: 'name email'}).then(event => {
         if (event) {
             errors.name = "This event name has already been taken";
             return res.status(400).json(errors);
@@ -41,12 +43,12 @@ router.post("/newEvent", (req, res) => {
         })
         newEvent.save().then(newEvent => {
             res.json(newEvent)
-        }).catch(err => console.log(err))
+        }).catch(error => res.status(400).json(error))
         
     }
     
     
-}).catch(err => console.log(err))
+}).catch(error => res.status(400).json({error: error}))
 });
 
 router.patch("/:id", (req, res) => {
@@ -76,7 +78,7 @@ router.patch("/:id", (req, res) => {
         updatedEvent => res.json(updatedEvent)
         )
     .catch(
-        err => console.log(err)
+        error => res.status(400).json({error: error})
     )
 });
 
@@ -86,7 +88,7 @@ router.delete("/:id", (req, res) => {
     ).then(() => {
         res.status(200).json({message: "Event has been deleted!"})
     })
-    .catch(err => res.status(400).json({error: error}))
+    .catch(error => res.status(400).json({error: error}))
 })
         
 

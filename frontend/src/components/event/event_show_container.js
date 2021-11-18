@@ -1,13 +1,24 @@
-// import {connect} from "react-redux";
-// import {fetchEvent} from '../../actions/events_action';
-// import EventShow from "./video_show";
+import { connect } from "react-redux";
+import {fetchEvent } from "../../actions/event_actions";
+import EventShow from "./event_show";
 
-// const mSTP = (state, ownProps) => ({
-//     event: state.entities.events[ownProps.match.params.eventId]
-// })
+const mapStateToProps = (state, ownProps) => {
+    // console.log(ownProps)
+    // debugger 
+    // const selected_event = state.events.filter(
+    //   event => event._id === ownProps.match.params.eventId
+    // );
+    // return {event: selected_event[0]}
 
-// const mDTP = (dispatch) =>({
-//     fetchEvent: eventId => dispatch(fetchEvent(eventId))
-// })
+    // return {event: state.events.filter(
+    //   (event) => event._id === ownProps.match.params.eventId
+    // )[0]}
+  return {event: state.events[ownProps.match.params.eventId]}
+};
 
-// export default connect(mSTP, mDTP)(EventShow)
+const mapDispatchToProps = (dispatch) => ({
+  fetchEvent: eventId => dispatch(fetchEvent(eventId))
+}); 
+
+export default connect(mapStateToProps, mapDispatchToProps)(EventShow);
+

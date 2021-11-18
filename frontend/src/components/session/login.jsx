@@ -5,6 +5,14 @@ import { RiLockPasswordFill } from "react-icons/ri";
 import { GrFormNextLink } from "react-icons/gr";
 import { HiOutlineClipboardList } from "react-icons/hi";
 
+const SpeechRecognition =
+  window.SpeechRecognition || window.webkitSpeechRecognition;
+const mic = new SpeechRecognition();
+
+mic.continuous = true;
+mic.interimResults = true;
+mic.lang = "en-us";
+
 class LoginForm extends React.Component {
   constructor(props) {
     super(props);
@@ -13,12 +21,17 @@ class LoginForm extends React.Component {
       email: "",
       password: "",
       errors: {},
+      isListening: false,
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.renderErrors = this.renderErrors.bind(this);
+    this.handleListen = this.handleListen.bind(this);
   }
 
+  componentDidMount() {
+    this.handleListen();
+  }
   // Once the user has been authenticated, redirect to the Tweets page
   componentWillReceiveProps(nextProps) {
     if (nextProps.currentUser === true) {
@@ -27,6 +40,65 @@ class LoginForm extends React.Component {
 
     // Set or clear errors
     this.setState({ errors: nextProps.errors });
+  }
+
+  handleListen() {
+    //
+    mic.onstart = () => {
+      console.log("Mics on");
+    };
+
+    mic.onresult = (event) => {
+      const transcript = Array.from(event.results)
+        .map((result) => result[0])
+        .map((result) => result.transcript)
+        .join("");
+      console.log(transcript);
+
+      if (transcript.includes("submit")) {
+        const email = this.state.email.replaceAll(" ", "");
+        const user = {
+          email,
+          password: this.state.password,
+        };
+        //for now will submit signup twice, could use debounce to solve this
+        this.props.login(user);
+        mic.stop();
+      } else if (transcript.includes("password")) {
+        const last = transcript.indexOf("word is");
+        let realTranscript = transcript.slice(last + 8);
+        realTranscript = realTranscript.replace("please subm", "");
+        this.setState({ password: realTranscript });
+      } else if (transcript.includes("email")) {
+        const last = transcript.indexOf("email is");
+        let realTranscript = transcript.slice(last + 8);
+        realTranscript = realTranscript.replace("my pas", "");
+        realTranscript = realTranscript.replace("my ", "");
+
+        if (realTranscript.includes("at")) {
+          realTranscript = realTranscript.replace("at", "@");
+          this.setState({ email: realTranscript });
+        } else {
+          this.setState({ email: realTranscript });
+        }
+      }
+
+      mic.onerror = (event) => {
+        console.log(event.error);
+      };
+    };
+  }
+
+  setIsListening(e) {
+    // e.preventDefault();
+    this.setState({ isListening: !this.state.isListening }, () => {
+      if (this.state.isListening) {
+        mic.start();
+      } else {
+        console.log("Mic stop");
+        mic.stop();
+      }
+    });
   }
 
   // Handle field updates (called in the render method)
@@ -54,7 +126,7 @@ class LoginForm extends React.Component {
     return (
       <ul>
         {Object.keys(this.state.errors).map((error, i) => (
-          <li style={{ marginBottom: 10 }}  key={`error-${i}`}>
+          <li style={{ marginBottom: 10 }} key={`error-${i}`}>
             {this.state.errors[error]}
           </li>
         ))}
@@ -87,7 +159,7 @@ class LoginForm extends React.Component {
                 </i>
                 <input
                   className="input-holder"
-                  type="password"
+                  type="text"
                   value={this.state.password}
                   onChange={this.update("password")}
                   placeholder="Password"
@@ -104,11 +176,15 @@ class LoginForm extends React.Component {
                 <br />
                 {this.renderErrors()}
               </div>
-              <div class="form__background">
-                <span class="form__background__shape form__background__shape2"></span>
+              <div className="form__background">
+                <span className="form__background__shape form__background__shape2"></span>
               </div>
             </form>
           </div>
+        </div>
+        <div className="mic">
+          {this.state.isListening ? <span>🎙️</span> : <span>🛑🎙️</span>}
+          <button onClick={this.setIsListening.bind(this)}>Start/Stop</button>
         </div>
       </div>
     );

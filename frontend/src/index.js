@@ -5,6 +5,8 @@ import configureStore from "./store/store";
 import { setAuthToken } from "./util/session_api_util";
 import jwt_decode from "jwt-decode";
 import { logout } from "./actions/session_actions"
+import {fetchEvent, fetchEvents }from "./actions/event_actions"
+
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -37,4 +39,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // Render our root component and pass in the store as a prop
   const root = document.getElementById("root");
   ReactDOM.render(<Root store={store} />, root);
+
+  window.store = store;
+  window.fetchEvent = fetchEvent;
+  window.fetchEvents = fetchEvents;
+
 });
+
