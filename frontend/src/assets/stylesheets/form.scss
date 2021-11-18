@@ -29,7 +29,7 @@ $Nunito: "Nunito", sans-serif;
     background: white;
     position: relative;
     height: 100vh;
-    width: 520px;
+    width: 700px;
     box-shadow: 0px 0px 24px #5e8b7e;
     .form__content {
       height: 100vh;
@@ -74,8 +74,8 @@ $Nunito: "Nunito", sans-serif;
 }
 
 .form-inner {
-  width: 400px;
-  padding-left: 40px;
+  width: 600px;
+  padding-left: 20px;
   padding-top: 120px;
 }
 
@@ -100,7 +100,7 @@ $Nunito: "Nunito", sans-serif;
   padding-left: 24px;
   margin-bottom: 20px;
   font-weight: 700;
-  width: 100%;
+  width: 90%;
   transition: 0.2s;
   background-color: transparent;
   .input-holder {
@@ -135,9 +135,9 @@ $Nunito: "Nunito", sans-serif;
   border: 1px solid #d4d3e8;
   text-transform: uppercase;
   font-weight: 700;
-  display: flex;
   align-items: center;
   width: 100%;
+  height: 50px;
   color: #4c489d;
   box-shadow: 0px 2px 2px #5c5696;
   cursor: pointer;

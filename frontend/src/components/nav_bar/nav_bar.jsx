@@ -15,7 +15,6 @@ class NavBar extends React.Component {
 
     this.logoutUser = this.logoutUser.bind(this);
     this.toggleDropdown = this.toggleDropdown.bind(this);
-    this.profileHandler = this.profileHandler.bind(this);
   }
 
   logoutUser(e) {
@@ -28,9 +27,7 @@ class NavBar extends React.Component {
     this.setState({ isDropdown: !this.state.isDropdown });
   }
   // Selectively render links dependent on whether the user is logged in
-  profileHandler(){
-    <Link to={"/profile"}></Link>
-  }
+ 
   render() {
      const { events, currentUser } = this.props;
     // const myrequests = requests.filter(
@@ -49,46 +46,46 @@ class NavBar extends React.Component {
     //     </div>
     //   </div>
     // )
-    const { isDropdown } = this.state;
-    let dropdownMenu;
-    if (isDropdown && this.props.loggedIn) {
-      dropdownMenu = (
-        <div className="loggedin-drop-down">
-          <div className="drop-down-profile">
-            <div className="drop-down-list">
-              <CgProfile
-                className="svg drop"
-                style={{ width: 45, height: 55 }}
-              />
-              <div className="drop-down-item">
-                <p> Friend Request!</p>
-                <Link style={{textDecoration: "none", backgroundColor: "white"}} to={"/profile"}>
-                  View Your Profile
-                </Link>
-              </div>
-            </div>
-            <div className="drop-down-list">
-              <AiOutlineSetting
-                className="svg drop"
-                style={{ width: 50, height: 50 }}
-              />
-              <Link className="link"> Settings </Link>
-            </div>
-            <div className="drop-down-list">
-              <GrNotes className="svg drop" style={{ width: 45, height: 45 }} />
-              <Link className="link"> Feedback </Link>
-            </div>
-            <div className="drop-down-list">
-              <CgLogOut
-                className="svg drop"
-                style={{ width: 45, height: 45 }}
-              />
-              <p onClick={this.logoutUser}>Logout</p>
-            </div>
-          </div>
-        </div>
-      );
-    }
+    // const { isDropdown } = this.state;
+    // let dropdownMenu;
+    // if (isDropdown && this.props.loggedIn) {
+    //   dropdownMenu = (
+    //     <div className="loggedin-drop-down">
+    //       <div className="drop-down-profile">
+    //         <div className="drop-down-list">
+    //           <CgProfile
+    //             className="svg drop"
+    //             style={{ width: 45, height: 55 }}
+    //           />
+    //           <div className="drop-down-item">
+    //             <p> Friend Request!</p>
+    //             <Link style={{textDecoration: "none", backgroundColor: "white"}} to={"/profile"}>
+    //               View Your Profile
+    //             </Link>
+    //           </div>
+    //         </div>
+    //         <div className="drop-down-list">
+    //           <AiOutlineSetting
+    //             className="svg drop"
+    //             style={{ width: 50, height: 50 }}
+    //           />
+    //           <Link className="link"> Settings </Link>
+    //         </div>
+    //         <div className="drop-down-list">
+    //           <GrNotes className="svg drop" style={{ width: 45, height: 45 }} />
+    //           <Link className="link"> Feedback </Link>
+    //         </div>
+    //         <div className="drop-down-list">
+    //           <CgLogOut
+    //             className="svg drop"
+    //             style={{ width: 45, height: 45 }}
+    //           />
+    //           <p onClick={this.logoutUser}>Logout</p>
+    //         </div>
+    //       </div>
+    //     </div>
+    //   );
+    // }
     const getLinks = this.props.loggedIn ? (
       <div className="logged-in">
         <div className="logged-in-profile-icon">
@@ -99,7 +96,7 @@ class NavBar extends React.Component {
             className="svg"
             onClick={this.toggleDropdown}
           />
-          <div>{dropdownMenu}</div>
+          {/* <div>{dropdownMenu}</div> */}
           <Link className="link" to={"/profile"}>
             <CgProfile/>
           </Link>
