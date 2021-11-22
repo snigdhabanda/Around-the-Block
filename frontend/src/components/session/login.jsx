@@ -27,6 +27,7 @@ class LoginForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.renderErrors = this.renderErrors.bind(this);
     this.handleListen = this.handleListen.bind(this);
+    this.loginDemo = this.loginDemo.bind(this);
   }
 
   componentDidMount() {
@@ -121,6 +122,15 @@ class LoginForm extends React.Component {
     this.props.login(user);
   }
 
+  loginDemo() {
+    this.props
+      .login({
+        email: "feifei@gmail.com",
+        password: "password",
+      })
+      .then(() => this.props.history.push("/profile"));
+  }
+
   // Render the session errors if there are any
   renderErrors() {
     return (
@@ -169,10 +179,19 @@ class LoginForm extends React.Component {
               <div>
                 <button className="button form__submit" type="submit">
                   <span className="button__text">LOG IN NOW</span>
+
                   <i>
                     <GrFormNextLink />
                   </i>
                 </button>
+
+                <button
+                  className="button form__submit"
+                  onClick={this.loginDemo()}
+                >
+                  Demo
+                </button>
+
                 <br />
                 {this.renderErrors()}
               </div>

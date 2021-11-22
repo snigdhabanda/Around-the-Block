@@ -133,6 +133,7 @@ class SignupForm extends React.Component {
 
     this.props.signup(user);
   }
+  
 
   renderErrors() {
     return (

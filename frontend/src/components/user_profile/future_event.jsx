@@ -3,13 +3,45 @@ import React from "react";
 class FutureEvent extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {name: "" }
+    this.state = { name: "" };
   }
   componentDidMount() {
+    
     this.props.fetchEvents();
+    this.props.receiveInvites();
+    this.props.fetchFriendRequests();
+    this.props.fetchUsers();
+    // if (this.props.preJoinedEvent !== "") {
+    //   this.props.updateCurrentUser({
+    //     id: this.props.currentUser.id,
+    //     eventsJoined: this.props.preJoinedEvent,
+    //   });
+    //   this.props.updateEvent({
+    //     id: this.props.preJoinedEvent,
+    //     guests: this.props.currentUser.id,
+    //   });
+    // }
+  }
+
+  componentDidUpdate() {
+    // if (
+    //   this.props.preJoinedEvent !== "" &&
+    //   !this.props.currentUser.eventsJoined.includes(this.props.preJoinedEvent)
+    // ) {
+    //   this.props.updateCurrentUser({
+    //     id: this.props.currentUser.id,
+    //     eventsJoined: this.props.preJoinedEvent,
+    //   });
+    //   this.props.updateEvent({
+    //     id: this.props.preJoinedEvent,
+    //     guests: this.props.currentUser.id,
+    //   });
+    // }
     this.props.receiveInvites(); 
+    
     this.props.fetchFriendRequests();
     this.props.fetchUsers()
+    
   }
 
   update(field) {
@@ -19,29 +51,33 @@ class FutureEvent extends React.Component {
       });
   }
 
-  submitFriendRequest(name){
+  submitFriendRequest(name) {
     // return (e) => {e.preventDefault();
+    
     const user = this.props.users.filter(user => user.name === name)[0];
     if (user) this.props.createFriendRequest({recipient: user._id})
     
   }
 
-  handleApprove(invite){
-    this.props.updateFriend({status: "approved", requester: invite.requester})
+  handleApprove(invite) {
+    this.props.updateFriend({
+      status: "approved",
+      requester: invite.requester,
+    });
   }
 
-  handleReject(invite){
-    this.props.updateFriend({status: "denied", requester: invite.requester})
+  handleReject(invite) {
+    this.props.updateFriend({ status: "denied", requester: invite.requester });
   }
 
   render() {
-    console.log(this.state)
+
     const { events, currentUser, invites, users } = this.props;
     const myEvents = events.filter(
-        (event) => event.hostId === currentUser.user.id
+      (event) => event.hostId === currentUser.user.id
     );
-    const myJoinedEvents = events.filter(
-        (event) => event.guests.includes(currentUser.user.id)
+    const myJoinedEvents = events.filter((event) =>
+      event.guests.includes(currentUser.user.id)
     );
     let displayMyEvents = myEvents.map((event, eventId) => {
       return (
@@ -60,8 +96,8 @@ class FutureEvent extends React.Component {
                   <div className="p-e-n">{event.name}</div>
                 </div>
                 <div className="p-event-desc">
-                    <div className="p-e-d">{event.description}</div>
-              </div>
+                  <div className="p-e-d">{event.description}</div>
+                </div>
               </div>
             </div>
           </div>
@@ -111,10 +147,13 @@ class FutureEvent extends React.Component {
                   <ul>
                     {
                     Object.values(this.props.invites).map((invite) => 
-                      <li>{Object.values(users).filter(user => user._id === invite.requester[0]).name}
-                      <button onClick={this.handleApprove.bind(this, invite)}>Approve</button>
-                      <button onClick={this.handleReject.bind(this, invite)}>Deny</button>
-                      </li>
+                      {if (invite.status === "pending"){
+                        <li>{Object.values(users).filter(user => user._id === invite.requester)[0].name}
+                        <button onClick={this.handleApprove.bind(this, invite)}>Approve</button>
+                        <button onClick={this.handleReject.bind(this, invite)}>Deny</button>
+                        </li>
+                      }}
+                     
                     )}
                   </ul>
             <h3>Send a friend request</h3>
@@ -155,4 +194,3 @@ class FutureEvent extends React.Component {
 }
 
 export default FutureEvent;
-

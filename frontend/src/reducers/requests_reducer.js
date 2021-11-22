@@ -9,7 +9,6 @@ const FriendRequestReducer = (state = {}, action) => {
       case RECEIVE_REQUEST:
           nextState[action.request._id] = action.request
       case RECEIVE_REQUESTS:
-          
             return action.requests
         default:
         return state;
