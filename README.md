@@ -22,6 +22,11 @@ As an app designed for the elderly to participate in social events, Around the B
 - Let users create accounts and recommend friends to join the app.
 - Allow users to host events by creating events and providing details such as title, description, location, time and images.
 
+
+![main_page](https://user-images.githubusercontent.com/75951481/145272433-5b0f7769-9646-4b9a-991b-c573b7994441.gif)
+
+
+
 ### Technologies
 
 ---
