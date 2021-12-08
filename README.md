@@ -17,10 +17,12 @@ Have you ever thought about whether your parents or grandparents are still in to
 
 As an app designed for the elderly to participate in social events, Around the Block can:
 
-- Clean and simple design with large font size, thus it's easier for our target users to navigate.
-- Allow users to signup and login using voice-to-text technology.
-- Let users create accounts and recommend friends to join the app.
-- Allow users to host events by creating events and providing details such as title, description, location, time and images.
+- Clean and simple UI with large font size make it easier for users to navigate.
+- Allow users to signup and login using voice recognition technology.
+- Let users create accounts and update their profiles on user's profile page.
+- Facilitate users send friend requests, accepting friend requests, or deny friend requests in our app.
+- Allow users to host events by creating events, updating events by providing details such as title, description, location, time and images.
+- Users can also leave events on user's profile page.
 
 
 ![main_page](https://user-images.githubusercontent.com/75951481/145272433-5b0f7769-9646-4b9a-991b-c573b7994441.gif)
