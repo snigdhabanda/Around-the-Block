@@ -3,7 +3,11 @@
 ---
 
 Around the Block is a user-friendly app designed for seniors to join social events and make new friends.
+
 Live Site: http://mern-around-the-block.herokuapp.com/
+
+
+<img width="1920" alt="main_page" src="https://user-images.githubusercontent.com/75951481/145268830-59b739bf-f0ac-4943-95ec-c3eda3bdd3b7.png">
 
 ### Background and Overview
 
@@ -42,6 +46,12 @@ We utilized the SpeechRecognition interface of the Web Speech API on our sign-up
 
 By strategically arranging the if/else conditions, we make sure that we have the right input in the right fields if user follows our convention saying **"my name is ..., my email is .... my password is ..., submit!"**
 
+
+[Click here for the live voice recognition demo video](https://atb-photos.s3.amazonaws.com/voice_recognition.MP4)
+
+![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/75951481/145268474-b94ffac4-2b52-4d6b-9ad2-47ed3bb47419.gif)
+
+
 ```javascript
 const SpeechRecognition =
   window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -74,6 +84,9 @@ mic.onresult = (event) => {
 ---
 
 We built a search bar using debounce() that efficiently retrieves user emails and names from the backend and renders their information on the frontend dynamically. A user can dispatch friend requests through this search bar and must wait for another user to approve their friend request for the friends list to update. Errors such as "You cannot send a friend request to yourself or you already sent a friend request" will inform a user of limitations. 
+
+![friends_request](https://user-images.githubusercontent.com/75951481/145268163-c5c71cd2-274b-485d-926b-2a8cc853959c.gif)
+
 
 ```javascript
 debounce() {
@@ -172,4 +185,6 @@ debounce() {
                   )}
                 </form>
 ```
+
+<img width="1601" alt="team" src="https://user-images.githubusercontent.com/75951481/145269055-0d6c6773-9e5c-404f-813f-df2a1613951c.png">
 
